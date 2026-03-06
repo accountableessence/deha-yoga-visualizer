@@ -96,18 +96,6 @@
         { area: 'Gaze',         text: 'Soft, steady gaze forward to maintain balance', sev: 'correct' },
       ]
     },
-    crow: {
-      name: 'Crow Pose',
-      sanskrit: 'Bakasana',
-      tip: 'Arm balance. Knees on the upper arms, lean your weight forward.',
-      corrections: [
-        { area: 'Wrists',  text: 'Spread the fingers wide and distribute weight evenly across the palms', sev: 'error' },
-        { area: 'Core',    text: 'Draw the belly in and upward strongly to lift the hips', sev: 'error' },
-        { area: 'Gaze',    text: 'Look about 15 cm forward on the mat — not straight down', sev: 'error' },
-        { area: 'Elbows',  text: 'Hold the elbows shoulder-width apart — do not let them flare outward', sev: 'correct' },
-        { area: 'Knees',   text: 'Press both knees firmly into the upper arms to anchor the pose', sev: 'correct' },
-      ]
-    },
     child: {
       name: "Child's Pose",
       sanskrit: 'Balasana',
@@ -149,8 +137,8 @@
   const TUTORIAL_DATA = {
     mountain: {
       level:   'Beginner',
-      image:   'assets/Palm Tree Pose.jpg',
-      videoId: 'WKO_jioXFaU',   // "Tadasana / Palm Tree Pose" tutorial
+      image:   'assets/Palm-tut.jpg',
+      videoId: 'V_bSLebtVJs&list=LL&index=9',   // "Tadasana / Palm Tree Pose" tutorial
       steps: [
         'Stand with feet hip-width apart, arms relaxed at your sides.',
         'Inhale and raise both arms overhead, interlocking your fingers with palms facing up.',
@@ -160,8 +148,8 @@
     },
     warrior1: {
       level:   'Beginner',
-      image:   'assets/Warrior I.jpg',
-      videoId: 'k6TbMgMKYaI',   // Warrior I beginner tutorial
+      image:   'assets/WarriorI-tut.jpg',
+      videoId: '98h26Ayke0s&list=LL&index=8',   // Warrior I beginner tutorial
       steps: [
         'Step your left foot back into a wide lunge, back heel angled at 45°.',
         'Bend the front knee to 90°, keeping it directly over the ankle.',
@@ -171,8 +159,8 @@
     },
     warrior2: {
       level:   'Beginner',
-      image:   'assets/Warrior II.jpg',
-      videoId: 'QWfJMCLFNGE',   // Warrior II tutorial
+      image:   'assets/WarriorII-tut.jpg',
+      videoId: 'YSjBJDkA6zg',   // Warrior II tutorial
       steps: [
         'Step feet wide apart. Turn the front foot out 90° and back foot in slightly.',
         'Bend the front knee to 90° directly over the ankle.',
@@ -182,8 +170,8 @@
     },
     tree: {
       level:   'Beginner',
-      image:   'assets/Tree pose.jpg',
-      videoId: 'wVMOPRNjUcE',   // Tree Pose tutorial
+      image:   'assets/Tree-tut.jpg',
+      videoId: 'sxymAjTuUx0&list=LL&index=8',   // Tree Pose tutorial
       steps: [
         'Stand on your left leg, engage the core and find a fixed gaze point.',
         'Place the sole of your right foot on your left inner thigh (not on the knee).',
@@ -193,8 +181,8 @@
     },
     triangle: {
       level:   'Beginner',
-      image:   'assets/Triangle pose.jpg',
-      videoId: 'sGSFVPxzOEI',   // Triangle Pose tutorial
+      image:   'assets/Triangle-tut.jpg',
+      videoId: 'Kh_tTk5_EGk&list=LL&index=3',   // Triangle Pose tutorial
       steps: [
         'Stand with feet wide apart. Turn front foot out 90°, back foot in slightly.',
         'Extend arms wide at shoulder height, then hinge sideways from the hip.',
@@ -204,8 +192,8 @@
     },
     eagle: {
       level:   'Intermediate',
-      image:   'assets/Eagle pose.jpg',
-      videoId: 'idkCyHCjHhE',   // Eagle Pose tutorial
+      image:   'assets/Eagle-tut.jpg',
+      videoId: 'Sq8o6BBi9uE&list=LL&index=4',   // Eagle Pose tutorial
       steps: [
         'Bend both knees slightly. Wrap the right leg over the left, hooking foot behind calf.',
         'Wrap right arm under left, lifting elbows to shoulder height.',
@@ -215,8 +203,8 @@
     },
     dancer: {
       level:   'Intermediate',
-      image:   'assets/Dancers pose.jpg',
-      videoId: 'pDJYFtA9YCM',   // Dancer's Pose tutorial
+      image:   'assets/Dancer-tut.jpg',
+      videoId: '2HJvzYzjaP0&list=LL&index=6',   // Dancer's Pose tutorial
       steps: [
         'Stand on your left leg, reach back and hold your right ankle or foot.',
         'Kick the foot actively into your hand to create the backbend.',
@@ -226,8 +214,8 @@
     },
     child: {
       level:   'Beginner',
-      image:   'assets/Child pose.jpg',
-      videoId: 'qUtENPqHkpI',   // Child's Pose tutorial
+      image:   'assets/Child-tut.jpg',
+      videoId: 'nMp3MlTz9fA&list=LL&index=7',   // Child's Pose tutorial
       steps: [
         'Kneel on the mat with big toes together, knees wide apart.',
         'Sink your hips back toward your heels and fold your torso forward.',
@@ -237,8 +225,8 @@
     },
     lotus: {
       level:   'Intermediate',
-      image:   'assets/Lotus pose.jpg',
-      videoId: 'Ih-9M6sMauo',   // Lotus Pose tutorial
+      image:   'assets/Lotus-tut.jpg',
+      videoId: 'ddnFSRprsdg&list=LL&index=2',   // Lotus Pose tutorial
       steps: [
         'Sit cross-legged and place your right foot on your left thigh.',
         'Then place your left foot on your right thigh, sole facing upward.',
@@ -248,8 +236,8 @@
     },
     seated: {
       level:   'Beginner',
-      image:   'assets/Forward fold.jpg',
-      videoId: 'MguZLHDQ1rE',   // Seated Forward Fold tutorial
+      image:   'assets/Forward-tut.jpg',
+      videoId: 'T8sgVyF4Ux4&list=LL&index=5',   // Seated Forward Fold tutorial
       steps: [
         'Sit with both legs extended straight in front, feet flexed.',
         'Inhale and lengthen the spine upward — grow as tall as possible.',
@@ -643,8 +631,10 @@
     document.getElementById('tutImg').src              = tut.image;
     document.getElementById('tutImg').alt              = pose.name;
 
-    document.getElementById('tutVideo').src =
-      `https://www.youtube.com/embed/${tut.videoId}?rel=0&modestbranding=1`;
+    document.getElementById('tutVideoLink').href =
+      `https://www.youtube.com/watch?v=${tut.videoId}`;
+    document.getElementById('tutVideoThumb').src =
+      `https://img.youtube.com/vi/${tut.videoId}/hqdefault.jpg`;
 
     const list = document.getElementById('tutStepsList');
     list.innerHTML = tut.steps.map(s => `<li>${s}</li>`).join('');
@@ -663,7 +653,7 @@
   async function closeTutorialAndStart() {
     const modal = document.getElementById('tutModal');
     modal.classList.remove('open');
-    document.getElementById('tutVideo').src = '';
+    document.getElementById('tutVideoThumb').src = '';
 
     // Save checkbox state
     const cb = document.getElementById('skipTutCheck');

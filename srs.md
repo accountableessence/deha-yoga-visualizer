@@ -22,20 +22,19 @@ yoga_project/
 ├── profile.html        ✅ Profile page
 ├── auth.html           ✅ Auth page
 ├── style.css           ✅ Global styles
-├── session.css         ✅ Session page styles
-├── session.js          ✅ Session page logic
+├── session.css         ✅ Session page styles + ✅ Tutorial popup styles
+├── session.js          ✅ Session page logic + ✅ Tutorial popup logic
 ├── profile.css         ✅ Profile styles
 ├── profile.js          ✅ Profile logic
 ├── auth.css            ✅ Auth styles
 ├── auth.js             ✅ Auth logic
 ├── splash.css          ✅ Splash screen styles
-├── splash.js           ✅ Splash screen logic
-├── tut-popup.css       ✅ Tutorial popup styles
+├── splash.js           ✅ Splash screen logic      
 ├── pose_test.py        ✅ Python MediaPipe pose tracker
 └── assets/
     ├── logo.png
     ├── splash-logo.png  ✅ Cropped D lettermark for splash
-    ├── Mountain pose.jpg  (renamed from "Mountain pose" → Palm Tree)
+    ├── Palm Tree Pose.jpg
     ├── Warrior I.jpg
     ├── Warrior II.jpg
     ├── Tree pose.jpg
