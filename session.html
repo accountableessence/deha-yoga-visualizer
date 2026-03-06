@@ -6,6 +6,7 @@
   <title>Deha</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="session.css" />
+  <link rel="stylesheet" href="splash.css" />
 </head>
 <body class="session-body">
 
@@ -104,7 +105,7 @@
               <select id="poseSelect" class="ctrl-select" onchange="onPoseChange()">
                 <option value="">— Choose a pose —</option>
                 <optgroup label="Standing">
-                  <option value="mountain">Mountain Pose (Tadasana)</option>
+                  <option value="mountain">Palm Tree Pose (Tadasana)</option>
                   <option value="warrior1">Warrior I (Virabhadrasana I)</option>
                   <option value="warrior2">Warrior II (Virabhadrasana II)</option>
                   <option value="tree">Tree Pose (Vrksasana)</option>
@@ -113,12 +114,11 @@
                 <optgroup label="Balance">
                   <option value="eagle">Eagle Pose (Garudasana)</option>
                   <option value="dancer">Dancer's Pose (Natarajasana)</option>
-                  <option value="crow">Crow Pose (Bakasana)</option>
                 </optgroup>
                 <optgroup label="Floor">
                   <option value="child">Child's Pose (Balasana)</option>
                   <option value="lotus">Lotus Pose (Padmasana)</option>
-                  <option value="seated">Seated Forward Fold</option>
+                  <option value="seated">Seated Forward Fold (Paschimottanasana)</option>
                 </optgroup>
               </select>
               <span class="ctrl-select-arrow">&#8964;</span>
@@ -144,6 +144,13 @@
       <div class="feedback-panel" id="feedbackPanel" style="display:none">
         <div class="feedback-header">
           <h3 class="feedback-title">Live Feedback</h3>
+          <button class="btn-tut-open" onclick="openTutorial()" title="View pose tutorial">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M12 11v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="12" cy="7.5" r="1" fill="currentColor"/>
+            </svg>
+          </button>
           <div class="feedback-score-pill" id="scorePill">—</div>
         </div>
 
@@ -153,6 +160,12 @@
           </div>
           <div class="feedback-slot empty" id="slot1"></div>
           <div class="feedback-slot empty" id="slot2"></div>
+        </div>
+        
+        <!-- Pose switcher pills -->
+        <div class="pose-switcher-wrap">
+          <div class="pose-switcher-label">Switch Pose</div>
+          <div class="pose-switcher-pills" id="poseSwitcher"></div>
         </div>
 
         <div class="feedback-pose-indicator">
@@ -183,7 +196,7 @@
             </div>
             <div class="sum-stat">
               <div class="sum-val" id="sumPose"></div>
-              <div class="sum-key">Pose Practiced</div>
+              <div class="sum-key">Poses Practiced</div>
             </div>
           </div>
           <div class="sum-highlight" id="sumHighlight"></div>
@@ -215,6 +228,78 @@
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════
+      TUTORIAL POPUP MODAL
+      Add this just before the closing </body> tag in session.html
+      (place it after the stopModal div)
+  ═══════════════════════════════════════ -->
+  <div class="tut-overlay" id="tutModal">
+    <div class="tut-box">
+
+      <!-- Header -->
+      <div class="tut-header">
+        <div class="tut-header-left">
+          <span class="tut-eyebrow">Before you begin</span>
+          <h2 class="tut-title" id="tutTitle"></h2>
+          <span class="tut-sanskrit" id="tutSanskrit"></span>
+        </div>
+        <button class="tut-close-btn" onclick="skipTutorial()" title="Skip">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="tut-body">
+
+        <!-- Left: image -->
+        <div class="tut-img-col">
+          <div class="tut-img-wrap">
+            <img id="tutImg" src="" alt="" class="tut-pose-img" />
+            <div class="tut-img-label" id="tutLevel"></div>
+          </div>
+        </div>
+
+        <!-- Right: video + steps -->
+        <div class="tut-content-col">
+          <div class="tut-video-wrap">
+            <iframe
+              id="tutVideo"
+              src=""
+              title="Pose tutorial"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="tut-steps">
+            <h4 class="tut-steps-title">How to do it</h4>
+            <ol class="tut-steps-list" id="tutStepsList"></ol>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tut-footer">
+        <label class="tut-skip-check">
+          <input type="checkbox" id="skipTutCheck" />
+          <span>Don't show for this session</span>
+        </label>
+        <div class="tut-footer-btns">
+          <button class="tut-skip-btn" onclick="skipTutorial()">Skip</button>
+          <button class="tut-begin-btn btn-gold" onclick="beginAfterTutorial()">
+            Begin Session
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script src="splash.js"></script>
   <script src="session.js"></script>
 </body>
 </html>

@@ -6,9 +6,17 @@
   <title>Deha — Profile</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="profile.css" />
+  <link rel="stylesheet" href="splash.css" />
 </head>
 <body class="profile-body">
-
+  <button type="button" class="pf-logout-btn" onclick="logOut()" title="Sign Out">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3Z" stroke="currentColor" stroke-width="1.8" fill="none"/>
+      <path d="M12 7v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8 9.5A5 5 0 1 0 16 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+    </svg>
+    <span class="logout-tooltip">Sign Out</span>
+  </button>
   <!-- ═══════════════════════════════════════
        NAVBAR
   ═══════════════════════════════════════ -->
@@ -85,7 +93,7 @@
           <button type="button" class="pf-clear-btn" onclick="clearProfile()">Clear Data</button>
           <button type="submit" class="btn-gold pf-save-btn">Save Profile</button>
           <div class="pf-saved-msg" id="pfSavedMsg" style="display:none">Profile saved successfully.</div>
-
+         
         </form>
       </div>
 
@@ -168,7 +176,7 @@
 
     </div>
   </div>
-
+  <script src="splash.js"></script>
   <script src="profile.js"></script>
 </body>
 </html>

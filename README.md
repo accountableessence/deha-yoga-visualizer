@@ -20,3 +20,7 @@ DEHA is a real-time yoga posture analysis system that uses computer vision to de
 - NumPy
 
 ## 📂 Project Structure
+    
+
+
+    

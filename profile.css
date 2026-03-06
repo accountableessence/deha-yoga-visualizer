@@ -290,6 +290,60 @@
   border-radius: 8px;
   border: 1px solid rgba(92,171,125,0.18);
 }
+.pf-logout-btn {
+  position: fixed;
+  top: 14px;
+  right: 10px;
+  z-index: 999;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--r5, #8D5E5E);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.22s;
+}
+.pf-logout-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 1.5px;
+  background: var(--gold, #D4AF37);
+  border-radius: 2px;
+  transition: width 0.28s ease;
+}
+.pf-logout-btn:hover::after {
+  width: 60%;
+}
+.pf-logout-btn:hover {
+  color: var(--gold, #D4AF37);
+}
+.logout-tooltip {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  background: rgba(28,14,14,0.88);
+  color: #f5eded;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 5px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.pf-logout-btn:hover .logout-tooltip {
+  opacity: 1;
+}
 
 /* ══════════════════════════════════
    RIGHT MAIN

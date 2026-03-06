@@ -8,16 +8,16 @@
   /* ── Pose data ── */
   const POSES = {
     mountain: {
-      name: 'Mountain Pose',
+      name: 'Palm Tree Pose',
       sanskrit: 'Tadasana',
-      tip: 'Stand with feet together, arms at sides. Ground through all four corners of each foot.',
+      tip: 'Stand tall, raise arms overhead and rise onto your toes. Balance and breathe.',
       corrections: [
-        { area: 'Spine',      text: 'Lengthen through the crown — lift your sternum gently upward', sev: 'error' },
-        { area: 'Shoulders',  text: 'Roll shoulders back and draw them down away from the ears', sev: 'error' },
-        { area: 'Feet',       text: 'Spread all ten toes wide and press them firmly down', sev: 'correct' },
-        { area: 'Core',       text: 'Engage the lower abdomen lightly without holding your breath', sev: 'error' },
-        { area: 'Arms',       text: 'Arms are relaxed by your sides, fingers pointing down', sev: 'correct' },
-        { area: 'Chin',       text: 'Tuck the chin slightly to lengthen the back of the neck', sev: 'error' },
+        { area: 'Arms',    text: 'Raise both arms fully overhead, palms facing each other', sev: 'error' },
+        { area: 'Balance', text: 'Rise onto the balls of your feet — engage the core to stabilise', sev: 'error' },
+        { area: 'Spine',   text: 'Lengthen through the crown — do not arch the lower back', sev: 'correct' },
+        { area: 'Gaze',    text: 'Fix gaze forward or gently upward to steady the balance', sev: 'error' },
+        { area: 'Legs',    text: 'Keep both legs straight and squeeze the inner thighs', sev: 'correct' },
+        { area: 'Breath',  text: 'Inhale as you rise, exhale as you lower — keep it flowing', sev: 'correct' },
       ]
     },
     warrior1: {
@@ -146,18 +146,136 @@
     },
   };
 
+  const TUTORIAL_DATA = {
+    mountain: {
+      level:   'Beginner',
+      image:   'assets/Palm Tree Pose.jpg',
+      videoId: 'WKO_jioXFaU',   // "Tadasana / Palm Tree Pose" tutorial
+      steps: [
+        'Stand with feet hip-width apart, arms relaxed at your sides.',
+        'Inhale and raise both arms overhead, interlocking your fingers with palms facing up.',
+        'Rise up onto your toes, stretching your whole body upward.',
+        'Fix your gaze on a point slightly above eye level and hold for 3–5 breaths.',
+      ]
+    },
+    warrior1: {
+      level:   'Beginner',
+      image:   'assets/Warrior I.jpg',
+      videoId: 'k6TbMgMKYaI',   // Warrior I beginner tutorial
+      steps: [
+        'Step your left foot back into a wide lunge, back heel angled at 45°.',
+        'Bend the front knee to 90°, keeping it directly over the ankle.',
+        'Square your hips forward and raise both arms overhead, palms facing each other.',
+        'Lift the chest and hold for 5 steady breaths. Repeat on the other side.',
+      ]
+    },
+    warrior2: {
+      level:   'Beginner',
+      image:   'assets/Warrior II.jpg',
+      videoId: 'QWfJMCLFNGE',   // Warrior II tutorial
+      steps: [
+        'Step feet wide apart. Turn the front foot out 90° and back foot in slightly.',
+        'Bend the front knee to 90° directly over the ankle.',
+        'Extend both arms parallel to the floor, palms facing down.',
+        'Open hips to the side, gaze over your front fingertips. Hold for 5 breaths.',
+      ]
+    },
+    tree: {
+      level:   'Beginner',
+      image:   'assets/Tree pose.jpg',
+      videoId: 'wVMOPRNjUcE',   // Tree Pose tutorial
+      steps: [
+        'Stand on your left leg, engage the core and find a fixed gaze point.',
+        'Place the sole of your right foot on your left inner thigh (not on the knee).',
+        'Press foot and thigh firmly against each other for stability.',
+        'Bring hands to prayer at chest or raise overhead. Hold for 5 breaths each side.',
+      ]
+    },
+    triangle: {
+      level:   'Beginner',
+      image:   'assets/Triangle pose.jpg',
+      videoId: 'sGSFVPxzOEI',   // Triangle Pose tutorial
+      steps: [
+        'Stand with feet wide apart. Turn front foot out 90°, back foot in slightly.',
+        'Extend arms wide at shoulder height, then hinge sideways from the hip.',
+        'Lower front hand to shin, ankle or the mat — keep the spine long.',
+        'Stack top arm directly above bottom arm and gaze upward. Hold 5 breaths each side.',
+      ]
+    },
+    eagle: {
+      level:   'Intermediate',
+      image:   'assets/Eagle pose.jpg',
+      videoId: 'idkCyHCjHhE',   // Eagle Pose tutorial
+      steps: [
+        'Bend both knees slightly. Wrap the right leg over the left, hooking foot behind calf.',
+        'Wrap right arm under left, lifting elbows to shoulder height.',
+        'Sink hips deeper and squeeze thighs together for balance.',
+        'Fix gaze on one steady point. Hold for 5 breaths then switch sides.',
+      ]
+    },
+    dancer: {
+      level:   'Intermediate',
+      image:   'assets/Dancers pose.jpg',
+      videoId: 'pDJYFtA9YCM',   // Dancer's Pose tutorial
+      steps: [
+        'Stand on your left leg, reach back and hold your right ankle or foot.',
+        'Kick the foot actively into your hand to create the backbend.',
+        'Extend the left arm forward and upward for counterbalance.',
+        'Keep hips squared forward. Hold for 5 breaths each side.',
+      ]
+    },
+    child: {
+      level:   'Beginner',
+      image:   'assets/Child pose.jpg',
+      videoId: 'qUtENPqHkpI',   // Child's Pose tutorial
+      steps: [
+        'Kneel on the mat with big toes together, knees wide apart.',
+        'Sink your hips back toward your heels and fold your torso forward.',
+        'Extend arms fully forward, forehead resting gently on the mat.',
+        'Breathe into the back body and hold as long as comfortable.',
+      ]
+    },
+    lotus: {
+      level:   'Intermediate',
+      image:   'assets/Lotus pose.jpg',
+      videoId: 'Ih-9M6sMauo',   // Lotus Pose tutorial
+      steps: [
+        'Sit cross-legged and place your right foot on your left thigh.',
+        'Then place your left foot on your right thigh, sole facing upward.',
+        'Sit tall with the spine erect — do not let the lower back collapse.',
+        'Rest hands on knees, close your eyes and breathe deeply for 1–3 minutes.',
+      ]
+    },
+    seated: {
+      level:   'Beginner',
+      image:   'assets/Forward fold.jpg',
+      videoId: 'MguZLHDQ1rE',   // Seated Forward Fold tutorial
+      steps: [
+        'Sit with both legs extended straight in front, feet flexed.',
+        'Inhale and lengthen the spine upward — grow as tall as possible.',
+        'Exhale and hinge forward from the hips, keeping the back flat.',
+        'Hold shins, ankles or feet. Breathe into the stretch for 5–10 breaths.',
+      ]
+    },
+  };
+
+
+
   /* ── State ── */
-  let sessionActive = false;
-  let videoStream   = null;
-  let confirmedName = '';
-  let selectedPose  = '';
-  let feedbackTimer = null;
-  let scoreTimer    = null;
-  let sessionClock  = null;
-  let sessionSecs   = 0;
-  let currentScore  = 72;
-  let scoreHistory  = [];
-  let correctionLog = {};
+  let sessionActive  = false;
+  let videoStream    = null;
+  let confirmedName  = '';
+  let selectedPose   = '';
+  let feedbackTimer  = null;
+  let scoreTimer     = null;
+  let sessionClock   = null;
+  let sessionSecs    = 0;
+  let currentScore   = 72;
+  let scoreHistory   = [];
+  let correctionLog  = {};
+  let posesPracticed = [];
+  let allScores      = {};   // scores per pose
+  let skipTutorial_  = false; // skip tutorial checkbox state
 
   /* ── DOM refs ── */
   const nameInput       = document.getElementById('nameInput');
@@ -203,57 +321,18 @@
   window.startSession = async function () {
     if (!selectedPose) return;
 
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
-      });
-      videoStream = stream;
-      videoEl.srcObject = stream;
-
-      // Name
-      try {
-        const p = JSON.parse(localStorage.getItem('deha_profile'));
-        confirmedName = p?.username || '';
-    } catch (e) { confirmedName = ''; }
-
-      const nametag = document.getElementById('cameraNametag');
-      if (confirmedName) {
-        nametag.textContent = confirmedName;
-        nametag.style.display = 'block';
-      }
-
-      // Swap UI
-      cameraPlaceholder.style.display = 'none';
-      cameraLive.style.display = 'flex';
-      ctrlPanel.style.display = 'none';
-      feedbackPanel.style.display = 'block';
-
-      // Status
-      statusDot.classList.add('live');
-      statusText.textContent = 'Live';
-      fpiName.textContent = POSES[selectedPose].name;
-
-      // Skeleton canvas size
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-
-      // Reset state
-      sessionActive  = true;
-      sessionSecs    = 0;
-      currentScore   = 72;
-      scoreHistory   = [];
-      correctionLog  = {};
-
-      // Begin loops
-      sessionClock = setInterval(() => sessionSecs++, 1000);
-      startFeedbackLoop();
-      startScoreLoop();
-      drawSkeletonLoop();
-
-    } catch (err) {
-      alert('Camera access was denied. Please allow camera permission in your browser and try again.');
+    const user = localStorage.getItem('deha_current_user');
+    if (!user) {
+      const startNote = document.querySelector('.start-note');
+      startNote.innerHTML = 'Please <a href="auth.html" style="color:var(--gold);font-weight:600;">sign in</a> or <a href="auth.html" style="color:var(--gold);font-weight:600;">create an account</a> to begin.';
+      return;
     }
+
+    // Show tutorial popup instead of starting camera directly
+    openTutorial();
   };
+
+
 
   /* ── Stop modal ── */
   window.openStopModal  = () => stopModal.classList.add('open');
@@ -304,8 +383,15 @@
 
   /* ── Build summary ── */
   function buildSummary() {
-    const avg = scoreHistory.length
+    // Save final pose score
+    allScores[selectedPose] = scoreHistory.length
       ? Math.round(scoreHistory.reduce((a, b) => a + b, 0) / scoreHistory.length)
+      : Math.round(currentScore);
+
+    // Average across all poses
+    const allScoreValues = Object.values(allScores);
+    const avg = allScoreValues.length
+      ? Math.round(allScoreValues.reduce((a, b) => a + b, 0) / allScoreValues.length)
       : Math.round(currentScore);
 
     const stability = Math.min(99, Math.max(40, avg + Math.round((Math.random() - 0.4) * 10)));
@@ -325,7 +411,9 @@
     document.getElementById('sumAccuracy').textContent  = avg + '%';
     document.getElementById('sumStability').textContent = stability + '%';
     document.getElementById('sumDuration').textContent  = durStr;
-    document.getElementById('sumPose').textContent      = pose ? pose.name : '—';
+    document.getElementById('sumPose').textContent = posesPracticed.length > 0
+      ? posesPracticed.map(k => POSES[k]?.name).filter(Boolean).join(', ')
+      : pose ? pose.name : '—';
 
     const nameStr = confirmedName ? confirmedName : 'you';
     const congrats = avg >= 80
@@ -359,11 +447,44 @@
     nameInput.value = '';
     nameConfirmed.style.display = 'none';
     confirmedName = '';
-    selectedPose = '';
+    selectedPose   = '';
+    posesPracticed = [];
+    allScores      = {};
+    skipTutorial_  = false;
 
     statusDot.classList.remove('live');
     statusText.textContent = 'Ready';
   };
+
+  /* ── Pose switcher pills ── */
+  function buildPoseSwitcher() {
+    const container = document.getElementById('poseSwitcher');
+    if (!container) return;
+    container.innerHTML = Object.entries(POSES).map(([key, pose]) => `
+      <button
+        class="pose-pill ${key === selectedPose ? 'active' : ''}"
+        id="pill-${key}"
+        onclick="switchPoseTo('${key}')"
+      >${pose.name}</button>
+    `).join('');
+  }
+
+  window.switchPoseTo = function(key) {
+    if (key === selectedPose) return;
+    window._pendingPose = key;
+    if (skipTutorial_) {
+      // Skip popup, switch directly
+      closeTutorialAndStart();
+    } else {
+      openTutorial(key);
+    }
+  };
+
+  function updatePosePills() {
+    document.querySelectorAll('.pose-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.id === `pill-${selectedPose}`);
+    });
+  }
 
   /* ── Feedback loop ── */
   function startFeedbackLoop() {
@@ -508,5 +629,131 @@
 
     requestAnimationFrame(drawSkeletonLoop);
   }
+
+  /* ── Tutorial popup ── */
+  window.openTutorial = function(poseKey) {
+    const key  = poseKey || selectedPose;
+    const tut  = TUTORIAL_DATA[key];
+    const pose = POSES[key];
+    if (!tut || !pose) return;
+
+    document.getElementById('tutTitle').textContent    = pose.name;
+    document.getElementById('tutSanskrit').textContent = pose.sanskrit;
+    document.getElementById('tutLevel').textContent    = tut.level;
+    document.getElementById('tutImg').src              = tut.image;
+    document.getElementById('tutImg').alt              = pose.name;
+
+    document.getElementById('tutVideo').src =
+      `https://www.youtube.com/embed/${tut.videoId}?rel=0&modestbranding=1`;
+
+    const list = document.getElementById('tutStepsList');
+    list.innerHTML = tut.steps.map(s => `<li>${s}</li>`).join('');
+
+    document.getElementById('tutModal').classList.add('open');
+  }
+
+  window.skipTutorial = function () {
+    closeTutorialAndStart();
+  };
+
+  window.beginAfterTutorial = function () {
+    closeTutorialAndStart();
+  };
+
+  async function closeTutorialAndStart() {
+    const modal = document.getElementById('tutModal');
+    modal.classList.remove('open');
+    document.getElementById('tutVideo').src = '';
+
+    // Save checkbox state
+    const cb = document.getElementById('skipTutCheck');
+    if (cb) skipTutorial_ = cb.checked;
+
+    // Mid-session pose switch — no camera request needed
+    if (sessionActive && window._pendingPose) {
+      // Save current pose score before switching
+      allScores[selectedPose] = scoreHistory.length
+        ? Math.round(scoreHistory.reduce((a, b) => a + b, 0) / scoreHistory.length)
+        : Math.round(currentScore);
+
+      selectedPose = window._pendingPose;
+      window._pendingPose = null;
+
+      if (!posesPracticed.includes(selectedPose)) posesPracticed.push(selectedPose);
+
+      fpiName.textContent = POSES[selectedPose].name;
+      currentScore  = 72;
+      scoreHistory  = [];
+      clearInterval(feedbackTimer);
+      clearInterval(scoreTimer);
+      startFeedbackLoop();
+      startScoreLoop();
+      updatePosePills();
+      return;
+    }
+
+    window._pendingPose = null;
+
+    // Fresh session start — request camera only once
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
+      });
+      videoStream = stream;
+      videoEl.srcObject = stream;
+
+      try {
+        const p = JSON.parse(localStorage.getItem('deha_profile'));
+        confirmedName = p?.username || '';
+      } catch (e) { confirmedName = ''; }
+
+      const nametag = document.getElementById('cameraNametag');
+      if (confirmedName) {
+        nametag.textContent   = confirmedName;
+        nametag.style.display = 'block';
+      }
+
+      cameraPlaceholder.style.display = 'none';
+      cameraLive.style.display        = 'flex';
+      ctrlPanel.style.display         = 'none';
+      feedbackPanel.style.display     = 'block';
+
+      statusDot.classList.add('live');
+      statusText.textContent = 'Live';
+      fpiName.textContent    = POSES[selectedPose].name;
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      sessionActive  = true;
+      sessionSecs    = 0;
+      currentScore   = 72;
+      scoreHistory   = [];
+      correctionLog  = {};
+      posesPracticed = [selectedPose];
+      allScores      = {};
+      skipTutorial_  = false;
+
+      sessionClock = setInterval(() => sessionSecs++, 1000);
+      startFeedbackLoop();
+      startScoreLoop();
+      drawSkeletonLoop();
+      buildPoseSwitcher();
+
+    } catch (err) {
+      alert('Camera access was denied. Please allow camera permission and try again.');
+    }
+  }
+
+  /* ── Auth check on load ── */
+  window.addEventListener('DOMContentLoaded', () => {
+    const user      = localStorage.getItem('deha_current_user');
+    const btnStart  = document.getElementById('btnStart');
+    const startNote = document.querySelector('.start-note');
+    if (!user) {
+      btnStart.disabled = true;
+      startNote.innerHTML = 'Please <a href="auth.html" style="color:var(--gold);font-weight:600;">sign in</a> to begin your session';
+    }
+  });
 
 })();

@@ -139,6 +139,11 @@
     setTimeout(() => { msg.style.display = 'none'; }, 2800);
   };
 
+  window.logOut = function() {
+  localStorage.removeItem('deha_current_user');
+  window.location.href = 'auth.html';
+};
+
   /* ─────────────────────────────────────────
      STATS ROW
   ───────────────────────────────────────── */
