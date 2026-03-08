@@ -4,6 +4,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Nunito:wght@300;400;500;600&display=swap');
 
+/* Font fallback stack */
+:root {
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body: 'Nunito', 'Helvetica Neue', Arial, sans-serif;
+}
+
 /* ── Design Tokens ── */
 :root {
   --r1: #CF9B98;
@@ -43,7 +49,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   background: var(--bg-page);
   color: var(--text-dark);
   font-weight: 400;
