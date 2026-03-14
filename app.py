@@ -4,36 +4,22 @@ DEHA — Flask Backend
 Receives base64 frames from session.html via WebSocket,
 runs MediaPipe pose detection + angle checks,
 streams feedback back to the browser in real time.
-
-Requirements:
-  pip install flask flask-cors flask-socketio mediapipe opencv-python numpy
-
-Run:
-  python app.py
-Then open session.html (served via Flask or a local server).
 """
-import os
+
 import base64
 import math
-import time
 
 import cv2
 import mediapipe as mp
 import numpy as np
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  APP SETUP
-# ─────────────────────────────────────────────────────────────────────────────
 app = Flask(__name__, static_folder=".", static_url_path="")
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  MEDIAPIPE SETUP
-# ─────────────────────────────────────────────────────────────────────────────
 from mediapipe.tasks import python as mp_python
 from mediapipe.tasks.python import vision
 
@@ -46,7 +32,7 @@ VisionRunningMode     = vision.RunningMode
 
 options = PoseLandmarkerOptions(
     base_options=BaseOptions(model_asset_path=MODEL_PATH),
-    running_mode=VisionRunningMode.IMAGE,   # IMAGE mode — no timestamp needed
+    running_mode=VisionRunningMode.IMAGE,
     num_poses=1,
     min_pose_detection_confidence=0.55,
     min_pose_presence_confidence=0.55,
@@ -55,9 +41,6 @@ options = PoseLandmarkerOptions(
 
 landmarker = PoseLandmarker.create_from_options(options)
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  LANDMARK INDEX
-# ─────────────────────────────────────────────────────────────────────────────
 IDX = {
     "nose": 0,
     "l_shoulder": 11, "r_shoulder": 12,
@@ -70,9 +53,6 @@ IDX = {
     "l_foot": 31,     "r_foot": 32,
 }
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  SKELETON CONNECTIONS (for drawing on canvas)
-# ─────────────────────────────────────────────────────────────────────────────
 SKELETON_CONNECTIONS = [
     ("l_shoulder", "r_shoulder"),
     ("l_shoulder", "l_hip"),
@@ -92,9 +72,6 @@ SKELETON_CONNECTIONS = [
     ("r_heel", "r_foot"),
 ]
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  POSE DEFINITIONS
-# ─────────────────────────────────────────────────────────────────────────────
 POSES = {
     "mountain": {
         "name": "Palm Tree Pose", "sanskrit": "Tadasana", "level": "Beginner",
@@ -110,11 +87,11 @@ POSES = {
     "warrior1": {
         "name": "Warrior I", "sanskrit": "Virabhadrasana I", "level": "Beginner",
         "checks": [
-            {"points": ("l_hip", "l_knee", "l_ankle"),     "range": (75, 105),  "label": "Front knee bend",  "fix": "Bend front knee to 90 degrees over the ankle"},
-            {"points": ("r_hip", "r_knee", "r_ankle"),     "range": (155, 185), "label": "Back leg",         "fix": "Straighten the back leg fully"},
-            {"points": ("l_elbow", "l_shoulder", "l_hip"), "range": (155, 210), "label": "Left arm raise",   "fix": "Raise the left arm straight overhead"},
-            {"points": ("r_elbow", "r_shoulder", "r_hip"), "range": (155, 210), "label": "Right arm raise",  "fix": "Raise the right arm straight overhead"},
-            {"points": ("l_shoulder", "l_hip", "l_knee"),  "range": (155, 195), "label": "Torso upright",    "fix": "Keep torso upright — do not lean forward"},
+            {"points": ("l_hip", "l_knee", "l_ankle"),     "range": (75, 105),  "label": "Front knee bend", "fix": "Bend front knee to 90 degrees over the ankle"},
+            {"points": ("r_hip", "r_knee", "r_ankle"),     "range": (155, 185), "label": "Back leg",        "fix": "Straighten the back leg fully"},
+            {"points": ("l_elbow", "l_shoulder", "l_hip"), "range": (155, 210), "label": "Left arm raise",  "fix": "Raise the left arm straight overhead"},
+            {"points": ("r_elbow", "r_shoulder", "r_hip"), "range": (155, 210), "label": "Right arm raise", "fix": "Raise the right arm straight overhead"},
+            {"points": ("l_shoulder", "l_hip", "l_knee"),  "range": (155, 195), "label": "Torso upright",   "fix": "Keep torso upright — do not lean forward"},
         ],
     },
     "warrior2": {
@@ -138,11 +115,11 @@ POSES = {
     "triangle": {
         "name": "Triangle Pose", "sanskrit": "Trikonasana", "level": "Beginner",
         "checks": [
-            {"points": ("l_hip", "l_knee", "l_ankle"),          "range": (160, 185), "label": "Front leg straight",  "fix": "Keep front leg straight — do not bend the knee"},
-            {"points": ("r_hip", "r_knee", "r_ankle"),          "range": (160, 185), "label": "Back leg straight",   "fix": "Straighten the back leg fully"},
-            {"points": ("l_elbow", "l_shoulder", "r_shoulder"), "range": (150, 210), "label": "Top arm reach",       "fix": "Extend top arm straight up toward the ceiling"},
-            {"points": ("r_elbow", "r_shoulder", "l_shoulder"), "range": (150, 210), "label": "Bottom arm reach",    "fix": "Reach bottom arm down toward the shin or floor"},
-            {"points": ("l_shoulder", "l_hip", "l_knee"),       "range": (120, 160), "label": "Lateral bend",        "fix": "Deepen the side bend — hinge more from the hip"},
+            {"points": ("l_hip", "l_knee", "l_ankle"),          "range": (160, 185), "label": "Front leg straight", "fix": "Keep front leg straight — do not bend the knee"},
+            {"points": ("r_hip", "r_knee", "r_ankle"),          "range": (160, 185), "label": "Back leg straight",  "fix": "Straighten the back leg fully"},
+            {"points": ("l_elbow", "l_shoulder", "r_shoulder"), "range": (150, 210), "label": "Top arm reach",      "fix": "Extend top arm straight up toward the ceiling"},
+            {"points": ("r_elbow", "r_shoulder", "l_shoulder"), "range": (150, 210), "label": "Bottom arm reach",   "fix": "Reach bottom arm down toward the shin or floor"},
+            {"points": ("l_shoulder", "l_hip", "l_knee"),       "range": (120, 160), "label": "Lateral bend",       "fix": "Deepen the side bend — hinge more from the hip"},
         ],
     },
     "eagle": {
@@ -194,9 +171,7 @@ POSES = {
     },
 }
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  HELPERS
-# ─────────────────────────────────────────────────────────────────────────────
+
 def calc_angle(a, b, c):
     ax, ay = a[0] - b[0], a[1] - b[1]
     cx, cy = c[0] - b[0], c[1] - b[1]
@@ -241,9 +216,6 @@ def build_joint_status(landmarks, pose_key, w, h):
     return joint_status, feedback, score
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  ROUTES — serve static files
-# ─────────────────────────────────────────────────────────────────────────────
 @app.route("/")
 def index():
     return send_from_directory(".", "index.html")
@@ -253,22 +225,14 @@ def static_files(path):
     return send_from_directory(".", path)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  WEBSOCKET — process a single frame
-# ─────────────────────────────────────────────────────────────────────────────
 @socketio.on("frame")
 def handle_frame(data):
-    """
-    Expects: { pose: "mountain", frame: "<base64 jpeg>" }
-    Emits:   { score, feedback: [...], landmarks: [...], joint_status: {...} }
-    """
     pose_key = data.get("pose", "mountain")
     if pose_key not in POSES:
         pose_key = "mountain"
 
-    # Decode base64 frame
     try:
-        b64 = data["frame"].split(",")[-1]  # strip "data:image/jpeg;base64,"
+        b64 = data["frame"].split(",")[-1]
         img_bytes = base64.b64decode(b64)
         np_arr    = np.frombuffer(img_bytes, np.uint8)
         frame     = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
@@ -280,7 +244,6 @@ def handle_frame(data):
 
     H, W = frame.shape[:2]
 
-    # Run MediaPipe
     rgb    = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     mp_img = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
     result = landmarker.detect(mp_img)
@@ -298,7 +261,6 @@ def handle_frame(data):
     landmarks    = result.pose_landmarks[0]
     joint_status, feedback, score = build_joint_status(landmarks, pose_key, W, H)
 
-    # Send normalised landmarks (0-1) for JS canvas drawing
     lm_list = [{"x": lm.x, "y": lm.y, "z": lm.z} for lm in landmarks]
 
     emit("feedback", {
@@ -311,11 +273,7 @@ def handle_frame(data):
     })
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  RUN
-# ─────────────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     print("\n  Deha Flask server starting...")
     print("  Open http://localhost:5000 in your browser\n")
-    port = int(os.environ.get("PORT", 5000))
-    socketio.run(app, host="0.0.0.0", port=port, debug=False)
+    socketio.run(app, host="0.0.0.0", port=5000, debug=False)

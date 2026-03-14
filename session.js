@@ -464,10 +464,11 @@
   }
 
   /* ── Canvas resize ── */
-  function resizeCanvas() {
-    skeletonCanvas.width  = cameraLive.offsetWidth;
-    skeletonCanvas.height = cameraLive.offsetHeight;
-  }
+ function resizeCanvas() {
+  const rect = cameraLive.getBoundingClientRect();
+  skeletonCanvas.width  = rect.width  || cameraLive.offsetWidth  || 640;
+  skeletonCanvas.height = rect.height || cameraLive.offsetHeight || 480;
+}
 
   /* ════════════════════════════════════════
      WEBSOCKET + FRAME CAPTURE
@@ -477,8 +478,13 @@
     socket = io('http://localhost:5000');
 
     socket.on('connect', () => {
-      console.log('[Deha] Connected to Flask backend');
-    });
+  console.log('[Deha] Connected to Flask backend');
+  socket.emit('set_pose', { pose: selectedPose });
+  if (feedbackTimer) clearInterval(feedbackTimer);
+  feedbackTimer = setInterval(() => {
+    if (sessionActive && socket) socket.emit('get_feedback');
+  }, 200);
+});
 
     socket.on('feedback', (data) => {
       if (!sessionActive) return;
@@ -735,6 +741,7 @@
       cameraLive.style.display        = 'flex';
       ctrlPanel.style.display         = 'none';
       feedbackPanel.style.display     = 'block';
+      setTimeout(() => resizeCanvas(), 100);
 
       statusDot.classList.add('live');
       statusText.textContent = 'Live';
