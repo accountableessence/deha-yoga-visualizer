@@ -3,6 +3,10 @@
    (Flask + WebSocket integration)
    ============================================================ */
 
+import { auth, db } from './firebase.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
 (function () {
   'use strict';
 
@@ -311,7 +315,7 @@
   /* ── Start Session ── */
   window.startSession = async function () {
     if (!selectedPose) return;
-    const user = localStorage.getItem('deha_current_user');
+    const user = auth.currentUser;
     if (!user) {
       const startNote = document.querySelector('.start-note');
       startNote.innerHTML = 'Please <a href="auth.html" style="color:var(--gold);font-weight:600;">sign in</a> or <a href="auth.html" style="color:var(--gold);font-weight:600;">create an account</a> to begin.';
@@ -363,7 +367,7 @@
   }
 
   /* ── Build summary ── */
-  function buildSummary() {
+  async function buildSummary() {
     allScores[selectedPose] = scoreHistory.length
       ? Math.round(scoreHistory.reduce((a, b) => a + b, 0) / scoreHistory.length)
       : Math.round(currentScore);
@@ -406,6 +410,25 @@
       ? `Most worked area: ${topArea} — corrected ${topCount} time${topCount > 1 ? 's' : ''} during the session.`
       : 'Your form was consistent throughout the session. Keep building on this.';
     document.getElementById('sumHighlight').textContent = hlText;
+
+    // ── Save session to Firestore ──
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        await addDoc(collection(db, 'users', user.uid, 'sessions'), {
+          pose:       posesPracticed.map(k => POSES[k]?.name).filter(Boolean).join(', '),
+          accuracy:   avg,
+          stability:  stability,
+          duration:   durStr,
+          durationSecs: sessionSecs,
+          topArea:    topArea || 'None',
+          createdAt:  serverTimestamp(),
+        });
+        console.log('[Deha] Session saved to Firestore');
+      }
+    } catch (err) {
+      console.error('[Deha] Failed to save session:', err);
+    }
   }
 
   /* ── Reset ── */
@@ -772,13 +795,15 @@
   }
 
   /* ── Auth check on load ── */
-  window.addEventListener('DOMContentLoaded', () => {
-    const user      = localStorage.getItem('deha_current_user');
+  onAuthStateChanged(auth, (user) => {
     const btnStart  = document.getElementById('btnStart');
     const startNote = document.querySelector('.start-note');
     if (!user) {
-      btnStart.disabled = true;
-      startNote.innerHTML = 'Please <a href="auth.html" style="color:var(--gold);font-weight:600;">sign in</a> to begin your session';
+      if (btnStart) btnStart.disabled = true;
+      if (startNote) startNote.innerHTML = 'Please <a href="auth.html" style="color:var(--gold);font-weight:600;">sign in</a> to begin your session';
+    } else {
+      // Re-enable start button if pose already selected
+      if (btnStart && selectedPose) btnStart.disabled = false;
     }
   });
 
